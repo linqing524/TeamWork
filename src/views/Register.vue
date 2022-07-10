@@ -1,17 +1,64 @@
 <template>
-  <div class="register">
-    <h2>注册</h2>
-    <div class="table">
-      <input type="text" placeholder="请输入用户名" /><br />
-      <input type="phone" placeholder="请输入手机号" /><br />
-      <input type="password" placeholder="请输入密码" /><br />
-      <button>提交</button>
-    </div>
+  <div>
+    <el-form
+      :model="rerForm"
+      ref="rerForm"
+      label-position="right"
+      :rules="rules"
+      label-width="100px"
+      class="register"
+    >
+      <h2>注册</h2>
+      <el-form-item label="用户名">
+        <el-input v-model="rerForm.name" placeholder="请输入用户名"></el-input>
+      </el-form-item>
+      <el-form-item label="手机号">
+        <el-input v-model="rerForm.phone" placeholder="请输入手机号"></el-input>
+      </el-form-item>
+      <el-form-item label="密码">
+        <el-input v-model="rerForm.pwd" placeholder="请输入密码"></el-input>
+      </el-form-item>
+      <el-form-item label="确认密码">
+        <el-input
+          v-model="rerForm.checkpwd"
+          placeholder="请再次确认密码"
+        ></el-input>
+      </el-form-item>
+    </el-form>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    // var checkphone = function (rule, value, callback) {
+    //   var exp = /^1[3-9]\d{9}$/;
+    //   if (exp.test(value)) {
+    //     callback();
+    //   }
+    // };
+    return {
+      rerForm: {
+        name: "",
+        phone: "",
+        pwd: "",
+        chechpwd: "",
+      },
+
+      rules: {
+        name: [
+          {
+            required: true,
+
+            message: "请输入用户名",
+            trigger: "blur",
+          },
+          { min: 3, max: 6, message: "长度在3到5个字符", trigger: "blur" },
+        ],
+      },
+    };
+  },
+};
 </script>
 
 <style scoped>
@@ -19,35 +66,33 @@ export default {};
   margin: 0;
   padding: 0;
 }
-body {
-  background: #5d4157;
-  background: linear-gradient(to right, #a8caba, #5d4157);
-  background-size: 400%;
-  animation: backdiv 12s infinite;
-}
 .register {
   width: 400px;
+  height: 100%;
   padding: 20px;
-  border: 1px solid white;
   border-radius: 20px;
-  text-align: center;
   background-color: #eee;
-
-  position: relative;
-  top: 25vh;
-  left: 35%;
+  margin-top: 15%;
+  margin-left: 35%;
 }
-.register > h2 {
+.register h2 {
   font-weight: bold;
   color: #1e90ff;
-}
-.register > .table {
-  /* width: 300px; */
+  margin-bottom: 50px;
+  text-align: center;
 }
 .register > .table > input {
   margin: 10px;
   height: 30px;
   width: 250px;
   text-align: center;
+}
+button {
+  width: 250px;
+  height: 40px;
+  background-color: #1e90ff;
+  border: 1px solid white;
+  color: white;
+  border-radius: 5px;
 }
 </style>
