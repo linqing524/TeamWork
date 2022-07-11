@@ -15,6 +15,7 @@
           type="text"
           v-model="rerForm.name"
           placeholder="请输入用户名"
+          suffix-icon="el-icon-user-solid"
         ></el-input>
       </el-form-item>
       <el-form-item label="手机号" prop="phone">
@@ -22,6 +23,7 @@
           type="text"
           v-model="rerForm.phone"
           placeholder="请输入手机号"
+          suffix-icon="el-icon-phone"
         ></el-input>
       </el-form-item>
       <el-form-item label="密码" prop="pwd">
@@ -29,6 +31,7 @@
           type="password"
           v-model="rerForm.pwd"
           placeholder="请输入密码"
+          show-password
         ></el-input>
       </el-form-item>
       <el-form-item label="确认密码" prop="checkpwd">
@@ -36,6 +39,7 @@
           type="password"
           v-model="rerForm.checkpwd"
           placeholder="请再次确认密码"
+          show-password
         ></el-input>
       </el-form-item>
       <el-form-item>
