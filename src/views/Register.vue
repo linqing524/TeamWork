@@ -7,22 +7,39 @@
       :rules="rules"
       label-width="100px"
       class="register"
+      status-icon
     >
       <h2>注册</h2>
-      <el-form-item label="用户名">
-        <el-input v-model="rerForm.name" placeholder="请输入用户名"></el-input>
-      </el-form-item>
-      <el-form-item label="手机号">
-        <el-input v-model="rerForm.phone" placeholder="请输入手机号"></el-input>
-      </el-form-item>
-      <el-form-item label="密码">
-        <el-input v-model="rerForm.pwd" placeholder="请输入密码"></el-input>
-      </el-form-item>
-      <el-form-item label="确认密码">
+      <el-form-item label="用户名" prop="name">
         <el-input
+          type="text"
+          v-model="rerForm.name"
+          placeholder="请输入用户名"
+        ></el-input>
+      </el-form-item>
+      <el-form-item label="手机号" prop="phone">
+        <el-input
+          type="text"
+          v-model="rerForm.phone"
+          placeholder="请输入手机号"
+        ></el-input>
+      </el-form-item>
+      <el-form-item label="密码" prop="pwd">
+        <el-input
+          type="password"
+          v-model="rerForm.pwd"
+          placeholder="请输入密码"
+        ></el-input>
+      </el-form-item>
+      <el-form-item label="确认密码" prop="checkpwd">
+        <el-input
+          type="password"
           v-model="rerForm.checkpwd"
           placeholder="请再次确认密码"
         ></el-input>
+      </el-form-item>
+      <el-form-item>
+        <el-button @click="submitForm('rerForm')">提交</el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -31,32 +48,59 @@
 <script>
 export default {
   data() {
-    // var checkphone = function (rule, value, callback) {
-    //   var exp = /^1[3-9]\d{9}$/;
-    //   if (exp.test(value)) {
-    //     callback();
-    //   }
-    // };
+    var checkpass = (rule, value, callback) => {
+      let exp = /^\d{6}$/;
+      if (!exp.test(value)) {
+        callback("密码为6位数字");
+      } else if (value !== this.rerForm.pwd) {
+        callback("两次密码不一致！");
+      } else {
+        callback();
+      }
+    };
     return {
       rerForm: {
         name: "",
         phone: "",
         pwd: "",
-        chechpwd: "",
+        checkpwd: "",
       },
 
       rules: {
         name: [
           {
             required: true,
-
             message: "请输入用户名",
             trigger: "blur",
           },
           { min: 3, max: 6, message: "长度在3到5个字符", trigger: "blur" },
         ],
+        pwd: [
+          { required: true, message: "请输入密码", trigger: "blur" },
+          { pattern: /^\d{6}$/, message: "6位数字", trigger: "blur" },
+        ],
+        checkpwd: [
+          { required: true, message: "请输入密码", trigger: "blur" },
+          { validator: checkpass, trigger: "blur" },
+        ],
+        phone: [
+          { required: true, message: "请输入手机号", trigger: "blur" },
+          { pattern: /^1[3-9]\d{9}$/, message: "11位号码", trigger: "blur" },
+        ],
       },
     };
+  },
+  methods: {
+    submitForm(formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          alert("submit success");
+        } else {
+          alert("submit error");
+          return;
+        }
+      });
+    },
   },
 };
 </script>
