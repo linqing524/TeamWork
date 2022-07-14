@@ -3,16 +3,30 @@ drop database if exists ice_cream;
 create database ice_cream charset=utf8;
 use ice_cream;
 create table product(
-	id int primary key,    #编号 主键   
+	pid int primary key,    #编号 主键   
 	series varchar(10),		# 系列
 	brand varchar(20),		#品牌
 	pic varchar(20),		#图片	
-	details text,			#详细介绍
-	price decimal(4,1)		#价格
+	details text,				#详细介绍
+	price decimal(4,1),		#价格
+	bid int     					#品牌id
+);
+create table index_all(
+	swiper varchar(20),
+	tid int 
+);
+create table index_img(
+	tid	int,
+	img varchar,
+	pid int
+);
+create table maketr(
+	bname varchar(20),			#品牌名
+	bid int primary key,		#品牌id
 );
 create table mixture_na (
 	id int primary key, 
-	name varchar(10), 
+	nname varchar(10), 
 	content varchar(10),  #每100克含量
 	reference int  #参考值
 
@@ -53,8 +67,20 @@ insert into product values(4,'小黄人','钟薛高','/img/a','这是钟薛高',
 insert into product values(5,'小黄人','钟薛高','/img/a','这是钟薛高',110);
 insert into product values(6,'小黄人','钟薛高','/img/a','钟薛高看有蛋白质雪糕10片海盐椰椰枚荔牛乳椰冰淇淋',60);
 insert into product values(7,'小黄人','钟薛高','/img/a','钟薛高醇香系列丝绒可可8加纳黑金2巧克力雪糕冰淇淋10片分享装',208);
-
-
+insert into maker values('钟薛高',1);
+insert into maker values('茅台',2);
+insert into maker values('xxx',3);
+insert into index_all values('/img/c','钟薛高品牌');
+insert into index_img values(1,'/img/b',1);
+insert into index_img values(1,'/img/b',2);
+insert into index_img values(1,'/img/b',3);
+insert into index_img values(1,'/img/b',4);
+insert into index_img values(2,'/img/b',5);
+insert into index_img values(2,'/img/b',6);
+insert into index_img values(2,'/img/b',7);
+insert into index_img values(2,'/img/b',8);
+insert into index_img values(3,'/img/b',9);
+insert into index_img values(3,'/img/b',10);
 insert into mixture_carbon values(1,'碳水化合物','17.8克',6);
 insert into mixture_prower values(1,'能量','858克',10);
 insert into mixture_protein values(1,'蛋白质','7.0克',12);
