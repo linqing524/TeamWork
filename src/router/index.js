@@ -28,6 +28,11 @@ const routes = [
       cool:true
     }
   },
+  {
+    path: '/nav',
+    name: 'nav',
+    component: () => import('../views/Nav_Bar.vue'),
+  },
   
 ]
 
