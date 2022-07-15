@@ -26,7 +26,27 @@ app.get('/show',(req,res)=>{
 	let sql=`select *  from product`
   pool.query(sql,[brand],(err,results)=>{
     if(err) throw err
-    res.send({ message: 'ok', code: 200, result: results});
+	let data={
+		Onefloor:['钟薛高',],
+		Twofloor:['中学高系列',],
+		Threefloor:['xxxxilie',],
+	}
+	results.forEach(items=>{
+		if(items.brand==data.Onefloor[0])
+		{
+			data.Onefloor.push(items)
+		}else if(items.brand==data.Twofloor[0])
+		{
+			data.Twofloor.push(items)
+		}else if(items.brand==data.Twofloor[0])
+		{
+			data.Threefloor.push(items)
+		}
+		
+		
+		
+	})
+    res.send({ message: 'ok', code: 200, result: data});
    
   })
 

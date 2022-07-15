@@ -3,13 +3,13 @@ drop database if exists ice_cream;
 create database ice_cream charset=utf8;
 use ice_cream;
 create table product(
-	pid int primary key,    #编号 主键   
+	pid int ,    #编号 主键   
 	series varchar(10),		# 系列
 	brand varchar(20),		#品牌
 	pic varchar(20),		#图片	
 	details text,				#详细介绍
 	price decimal(4,1),		#价格
-	bid int     					#品牌id
+	id int     					#品牌id
 );
 create table index_all(
 	swiper varchar(20),
@@ -17,13 +17,13 @@ create table index_all(
 );
 create table index_img(
 	tid	int,
-	img varchar,
+	img varchar(50),
 	pid int
 );
-create table maketr(
+create table maker(
 	bname varchar(20),			#品牌名
-	bid int primary key,		#品牌id
-);
+	bid int primary key         #品牌id
+	);		
 create table mixture_na (
 	id int primary key, 
 	nname varchar(10), 
@@ -60,13 +60,13 @@ create table mixture_oil (
 
 );
 
-insert into product values(1,'小黄人','钟薛高','/img/a','这是钟薛高',30);
-insert into product values(2,'小黄人','钟薛高','/img/a','这是钟薛高',20);
-insert into product values(3,'小黄人','钟薛高','/img/a','这是钟薛高',70);
-insert into product values(4,'小黄人','钟薛高','/img/a','这是钟薛高',120);
-insert into product values(5,'小黄人','钟薛高','/img/a','这是钟薛高',110);
-insert into product values(6,'小黄人','钟薛高','/img/a','钟薛高看有蛋白质雪糕10片海盐椰椰枚荔牛乳椰冰淇淋',60);
-insert into product values(7,'小黄人','钟薛高','/img/a','钟薛高醇香系列丝绒可可8加纳黑金2巧克力雪糕冰淇淋10片分享装',208);
+insert into product values(1,'小黄人','钟薛高','/img/a','这是钟薛高',30,1);
+insert into product values(2,'小黄人','钟薛高','/img/a','这是钟薛高',20,1);
+insert into product values(3,'小黄人','钟薛高','/img/a','这是钟薛高',70,1);
+insert into product values(4,'小黄人','钟薛高','/img/a','这是钟薛高',120,1);
+insert into product values(5,'小黄人','钟薛高','/img/a','这是钟薛高',110,1);
+insert into product values(6,'小黄人','钟薛高','/img/a','钟薛高看有蛋白质雪糕10片海盐椰椰枚荔牛乳椰冰淇淋',60,1);
+insert into product values(7,'小黄人','钟薛高','/img/a','钟薛高醇香系列丝绒可可8加纳黑金2巧克力雪糕冰淇淋10片分享装',208,1);
 insert into maker values('钟薛高',1);
 insert into maker values('茅台',2);
 insert into maker values('xxx',3);
