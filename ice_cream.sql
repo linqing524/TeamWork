@@ -3,13 +3,13 @@ drop database if exists ice_cream;
 create database ice_cream charset=utf8;
 use ice_cream;
 create table product(
-	pid int ,    #编号 主键   
-	series varchar(10),		# 系列
+	pid int ,    			#编号 主键   
+	series varchar(10),		#系列
 	brand varchar(20),		#品牌
 	pic varchar(20),		#图片	
-	details text,				#详细介绍
+	details text,			#详细介绍
 	price decimal(4,1),		#价格
-	id int     					#品牌id
+	id int     				#品牌id
 );
 create table index_all(
 	swiper varchar(20),
