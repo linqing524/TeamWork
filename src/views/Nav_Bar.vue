@@ -1,25 +1,16 @@
 <template>
   <div>
     <swiper class="swiper" :options="swiperOption">
-      <swiper-slide class="slide-1">
-        <img
-          src="../../public/01fafc5ccba072a8012141685ee396.jpg@1280w_1l_2o_100sh.jpg"
-          alt=""
-        />
-      </swiper-slide>
-      <swiper-slide class="slide-2">
-        <img src="../../public/1606236251.jpg" alt="" />
-      </swiper-slide>
-      <swiper-slide class="slide-3">
-        <img src="../../public/28b83ee610103242b8d904de7e33b520.jpg" alt="" />
-      </swiper-slide>
-      <swiper-slide class="slide-4">
-        <img
-          src="../../public/ChMlWV5N4RyIFciOAA1TX1AmfMwAANZEgDfHjAADVN3288.jpg"
-          alt=""
-        />
+      <swiper-slide class="slide-1" v-for="(item, i) in data.Swiper" :key="i">
+        <img :src="`/${item}`" alt="" />
       </swiper-slide>
       <div
+        class="swiper-pagination swiper-pagination-white"
+        slot="pagination"
+        v-for="(item, i) in 4"
+        :key="i"
+      ></div>
+      <!-- <div
         class="swiper-pagination swiper-pagination-white"
         slot="pagination"
       ></div>
@@ -30,51 +21,60 @@
       <div
         class="swiper-pagination swiper-pagination-white"
         slot="pagination"
-      ></div>
-      <div
-        class="swiper-pagination swiper-pagination-white"
-        slot="pagination"
-      ></div>
+      ></div> -->
     </swiper>
-    <div class="floor">
+    <div class="floor" v-if="data">
       <div class="floor_one">
-        <h2>sub</h2>
-        <div class="sub">
-          <div class="detail">njavbesg</div>
-          <div class="img">
-            <img
-              src="../../public/01fafc5ccba072a8012141685ee396.jpg@1280w_1l_2o_100sh.jpg"
-              alt=""
-            />
-            <img src="../../public/1606236251.jpg" alt="" />
-          </div>
+        <div class="detail" style="margin-top: 50px">
+          <h2 style="font-size: 3em">{{ data.Onefloor.brand }}</h2>
+          <p
+            v-html="data.Onefloor.details"
+            style="
+              text-align: center;
+              line-height: 70px;
+              margin-top: 50px;
+              font-size: 2em;
+            "
+          ></p>
+        </div>
+        <div class="img">
+          <img
+            v-for="(item, i) in data.Onefloor.pic"
+            :key="i"
+            :src="`/${item}`"
+            alt=""
+          />
+          <!-- <img src="../../public/VCG211222513964.jpg" alt="" /> -->
         </div>
       </div>
       <div class="floor_two">
-        <p></p>
+        <p>xxxxxx</p>
       </div>
       <div class="floor_three">
-        <img src="" alt="" />
+        <img :src="`/${data.Twofloor.pic[0]}`" alt="" />
         <div class="main">
-          <h2>bisjvb</h2>
-          <p>svbnwoivnw</p>
+          <h2>{{ data.Twofloor.brand }}</h2>
+          <p>{{ data.Twofloor.details }}</p>
         </div>
       </div>
       <div class="floor_four">
-        <div class="img1">
-          <img src="" alt="" />
-          <h2>ccc</h2>
-          <p>nsvoiwenv</p>
-        </div>
-        <div class="img2">
-          <img src="" alt="" />
-          <h2>ccc</h2>
-          <p>nsvoiwenv</p>
-        </div>
-        <div class="img3">
-          <img src="" alt="" />
-          <h2>ccc</h2>
-          <p>nsvoiwenv</p>
+        <h2>{{ p[0].brand }}</h2>
+        <div class="four">
+          <div class="img1">
+            <img :src="`/${p[0].pic}`" alt="" />
+            <h2>{{ p[0].title }}</h2>
+            <p>{{ p[0].details }}</p>
+          </div>
+          <div class="img2">
+            <img :src="`/${p[1].pic}`" alt="" />
+            <h2>{{ p[1].title }}</h2>
+            <p>{{ p[1].details }}</p>
+          </div>
+          <div class="img3">
+            <img :src="`/${p[2].pic}`" alt="" />
+            <h2>{{ p[2].title }}</h2>
+            <p>{{ p[2].details }}</p>
+          </div>
         </div>
       </div>
     </div>
@@ -84,6 +84,11 @@
 <script>
 import IndexFloor from "@/components/IndexFloor.vue";
 export default {
+  computed: {
+    p() {
+      return this.data.Threefloor;
+    },
+  },
   components: { IndexFloor },
   data() {
     return {
@@ -95,7 +100,20 @@ export default {
           clickable: true,
         },
       },
+      data: "",
     };
+  },
+  mounted() {
+    this.getData();
+  },
+  methods: {
+    getData() {
+      this.axios.get("/show").then((res) => {
+        console.log(res);
+        this.data = res.data.result;
+        console.log(this.data);
+      });
+    },
   },
 };
 </script>
@@ -110,41 +128,91 @@ export default {
 } */
 .floor_one,
 .floor_two,
-.three,
+.floor_three,
 .floor_four {
   position: relative;
 }
 .floor_one {
   background-color: rgb(11, 12, 17);
-  position: relative;
   color: aliceblue;
+  display: flex;
 }
 h2 {
   text-align: center;
+  font-size: 1.5em;
 }
-.floor_one .sub {
-  height: 550px;
-  background-color: rgb(11, 12, 17);
-}
-.floor_one > .sub > div {
-  position: absolute;
+.floor_one div {
+  height: 700px;
 }
 .detail {
+  /* position: absolute; */
   left: 0;
   margin-left: 20px;
   margin-top: 10px;
+  width: 70vw;
 }
 .img {
   right: 0;
-  margin-right: 20px;
-  padding-right: 40px;
+  bottom: 0;
   margin-top: 10px;
-  display: block;
 }
 .img > img {
-  height: 241px;
+  right: 0;
+  height: 340px;
   width: 540px;
   margin-bottom: 5px;
   display: block;
+}
+.floor_two {
+  background-color: rgb(27, 181, 128);
+  height: 200px;
+  margin-top: 5px;
+}
+.floor_two p {
+  text-align: center;
+}
+.floor_three {
+  background-color: rgb(255, 255, 255);
+  color: black;
+  margin-top: 5px;
+  display: flex;
+}
+.floor_three > img {
+  /* position: absolute; */
+  height: 400px;
+  display: inline-block;
+}
+.main {
+  width: calc(100vw - 712px);
+  height: 400px;
+  align-items: center;
+}
+.floor_four {
+  height: 800px;
+  margin-top: 10px;
+  background-color: rgb(11, 12, 17);
+  color: white;
+}
+.floor_four h2 {
+  flex-wrap: wrap;
+}
+.floor_four > .four {
+  display: flex;
+  margin-left: 10px;
+  bottom: 0;
+  justify-content: center;
+  margin-top: 56px;
+}
+.floor_four .four div {
+  width: 380px;
+  margin-left: 20px;
+}
+.floor_four .four div img {
+  width: 380px;
+  height: 480px;
+}
+.floor_four > .four .img1,
+.img3 {
+  margin-top: 70px;
 }
 </style>

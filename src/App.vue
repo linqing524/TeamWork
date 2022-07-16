@@ -9,6 +9,7 @@
               height: 100%;
               text-align: center;
               color: white;
+              z-index: index;
             }
           "
         >
@@ -81,11 +82,19 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 html,
 body {
   height: 100%;
 }
+.el-main {
+  margin: 0;
+}
+* {
+  margin: 0;
+  padding: 0;
+}
+
 .active {
   background-color: blue;
   position: absolute;
