@@ -1,5 +1,5 @@
 <template>
-  <div :class="{ active: this.$route.meta.cool }">
+  <div>
     <el-container>
       <el-backtop :bottom="100">
         <div
@@ -95,20 +95,23 @@ body {
   padding: 0;
 }
 
-.active {
+/* .active {
   background-color: blue;
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-}
+} */
 .el-header {
   background-color: #f2f2f2;
   height: 100px !important;
   padding: 10px 0;
-  position: sticky;
+  /* position: sticky; */
   top: 0;
+}
+.el-main {
+  height: calc(100vh - 100px);
 }
 .el-backtop {
   background-color: #e8dcca;
@@ -116,6 +119,7 @@ body {
   height: 60px;
   border-radius: 50%;
   font-size: 14px;
+  z-index: -50;
 }
 .el-backtop:hover,
 .el-backtop:active,

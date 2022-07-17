@@ -9,7 +9,7 @@
       class="register"
       status-icon
     >
-      <h2>注册</h2>
+      <h2 class="animate__pulse">注册</h2>
       <el-form-item label="用户名" prop="name">
         <el-input
           type="text"
@@ -50,6 +50,7 @@
 </template>
 
 <script>
+import "animate.css";
 export default {
   data() {
     var checkpass = (rule, value, callback) => {
@@ -99,6 +100,7 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           alert("submit success");
+          this.$router.push("/login");
         } else {
           alert("submit error");
           return;

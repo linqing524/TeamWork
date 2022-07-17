@@ -1,6 +1,12 @@
 <template>
   <div>
-    <swiper class="swiper" :options="swiperOption">
+    <swiper
+      class="swiper"
+      :options="swiperOption"
+      ref="myswiper"
+      @mouseover.native="mouseover"
+      @mouseout.native="mouseout"
+    >
       <swiper-slide class="slide-1" v-for="(item, i) in data.Swiper" :key="i">
         <img :src="`/${item}`" alt="" />
       </swiper-slide>
@@ -61,17 +67,32 @@
         <h2>{{ p[0].brand }}</h2>
         <div class="four">
           <div class="img1">
-            <img :src="`/${p[0].pic}`" alt="" />
+            <img
+              :src="`/${p[0].pic}`"
+              alt=""
+              @mouseover="imgclass = 1"
+              :class="{ 'animate__animated animate__pulse': imgclass == 1 }"
+            />
             <h2>{{ p[0].title }}</h2>
             <p>{{ p[0].details }}</p>
           </div>
           <div class="img2">
-            <img :src="`/${p[1].pic}`" alt="" />
+            <img
+              :src="`/${p[1].pic}`"
+              alt=""
+              @mouseover="imgclass = 2"
+              :class="{ 'animate__animated animate__pulse': imgclass == 2 }"
+            />
             <h2>{{ p[1].title }}</h2>
             <p>{{ p[1].details }}</p>
           </div>
           <div class="img3">
-            <img :src="`/${p[2].pic}`" alt="" />
+            <img
+              :src="`/${p[2].pic}`"
+              alt=""
+              @mouseover="imgclass = 3"
+              :class="{ 'animate__animated animate__pulse': imgclass == 3 }"
+            />
             <h2>{{ p[2].title }}</h2>
             <p>{{ p[2].details }}</p>
           </div>
@@ -83,6 +104,7 @@
 
 <script>
 import IndexFloor from "@/components/IndexFloor.vue";
+import "animate.css";
 export default {
   computed: {
     p() {
@@ -98,9 +120,16 @@ export default {
         pagination: {
           el: ".swiper-pagination",
           clickable: true,
+          loop: true,
+        },
+
+        autoplay: {
+          delay: 2500,
+          disableOnInteraction: false,
         },
       },
       data: "",
+      imgclass: 0,
     };
   },
   mounted() {
@@ -113,6 +142,13 @@ export default {
         this.data = res.data.result;
         console.log(this.data);
       });
+    },
+    mouseover() {
+      // console.log(this.$refs);
+      this.$refs.myswiper.swiper.autoplay.stop();
+    },
+    mouseout() {
+      this.$refs.myswiper.swiper.autoplay.start();
     },
   },
 };
@@ -142,7 +178,7 @@ h2 {
   font-size: 1.5em;
 }
 .floor_one div {
-  height: 700px;
+  height: 650px;
 }
 .detail {
   /* position: absolute; */

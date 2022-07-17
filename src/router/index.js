@@ -29,9 +29,28 @@ const routes = [
     }
   },
   {
+    path: '*',
+    name: 'notfound',
+    component: () => import('../views/NotFound.vue'),
+  },
+  {
+    path: '/product',
+    name: 'product',
+    component: () => import('../views/Product.vue'),
+  },
+  {
+    path: '/login',
+    name: 'login',
+    component: () => import('../views/Login.vue'),
+  },
+  {
     path: '/nav',
     name: 'nav',
     component: () => import('../views/Nav_Bar.vue'),
+    meta:{
+      title:'首页',
+      cool:'yes'
+    }
   },
   
 ]

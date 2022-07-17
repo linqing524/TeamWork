@@ -14,8 +14,8 @@ Vue.use(VueAwesomeSwiper)
 Vue.config.productionTip = false
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
-
-
+import animated from'animate.css'
+Vue.use(animated)
 Vue.use(ElementUI);
 new Vue({
   router,
