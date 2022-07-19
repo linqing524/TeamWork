@@ -3,13 +3,20 @@ drop database if exists ice_cream;
 create database ice_cream charset=utf8;
 use ice_cream;
 create table product(
-	pid int ,    			#编号 主键   
+	pid int primary key auto_increment,    			#编号 主键   
 	series varchar(10),		#系列
 	brand varchar(20),		#品牌
-	pic varchar(20),		#图片	
+	pic varchar(50),		#图片	
 	details text,			#详细介绍
 	price decimal(4,1),		#价格
-	id int     				#品牌id
+	id int ,    				#品牌id
+	title varchar(20)
+);
+create table users(
+	userid int primary key auto_increment,
+	username varchar(20),
+	phone varchar(11) unique,
+	pwd varchar(20)
 );
 create table index_all(
 	swiper varchar(20),
@@ -60,17 +67,18 @@ create table mixture_oil (
 
 );
 
-insert into product values(1,'小黄人','钟薛高','/img/a','这是钟薛高',30,1);
-insert into product values(2,'小黄人','钟薛高','/img/a','这是钟薛高',20,1);
-insert into product values(3,'小黄人','钟薛高','/img/a','这是钟薛高',70,1);
-insert into product values(4,'小黄人','钟薛高','/img/a','这是钟薛高',120,1);
-insert into product values(5,'小黄人','钟薛高','/img/a','这是钟薛高',110,1);
-insert into product values(6,'小黄人','钟薛高','/img/a','钟薛高看有蛋白质雪糕10片海盐椰椰枚荔牛乳椰冰淇淋',60,1);
-insert into product values(7,'小黄人','钟薛高','/img/a','钟薛高醇香系列丝绒可可8加纳黑金2巧克力雪糕冰淇淋10片分享装',208,1);
-insert into maker values('钟薛高',1);
-insert into maker values('茅台',2);
-insert into maker values('xxx',3);
-insert into index_all values('/img/c','钟薛高品牌');
+insert into product(brand,details) values('钟薛高','这是一款和你们共创的产品，<br/>你们说：<br/>要杯装的，<br/>要有梅肉的，<br/>要口感酸酸甜甜的，<br/>要好吃的……他来了');
+insert into product(brand,pic) values('钟薛高','VCG211126853830.jpg');
+insert into product(brand,pic) values('钟薛高','VCG211222513964.jpg');
+insert into product(brand,details)values('茅台冰淇淋','冰醇之爱只为你');
+insert into product(brand,pic)values('茅台冰淇淋','0606236251.jpg');
+insert into product(brand,title,pic,details)values('清凉一夏','清凉一夏','VCG211126870018.jpg','哇，好好看啊');
+insert into product(brand,title,pic,details)values('清凉一夏','清凉一夏','VCG211126849443.jpg','真不错');
+insert into product(brand,title,pic,details)values('清凉一夏','清凉一夏','VCG211154262781.jpg','好想吃哦');
+insert into product(brand,pic)values('swiper','VCG211163942350.jpg');
+insert into product(brand,pic)values('swiper','VCG211222631624.jpg');
+insert into product(brand,pic)values('swiper','VCG41N1173571291.jpg');
+insert into product(brand,pic)values('swiper','VCG41N1171733545.jpg');
 insert into index_img values(1,'/img/b',1);
 insert into index_img values(1,'/img/b',2);
 insert into index_img values(1,'/img/b',3);

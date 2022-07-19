@@ -1,5 +1,6 @@
 const express=require('express')
 const mysql=require('mysql')
+const md5 = require('md5');
 const app=express()
 app.listen(3000,function(){
 	console.log('服务器启动')
@@ -27,20 +28,30 @@ app.get('/show',(req,res)=>{
   pool.query(sql,[brand],(err,results)=>{
     if(err) throw err
 	let data={
-		Onefloor:['钟薛高',],
-		Twofloor:['中学高系列',],
-		Threefloor:['xxxxilie',],
+		Swiper:[],
+		Onefloor:{brand:'钟薛高',pic:[],details:''},
+		Twofloor:{brand:'茅台冰淇淋',pic:[],details:''},
+		Threefloor:[],
 	}
 	results.forEach(items=>{
-		if(items.brand==data.Onefloor[0])
+		if(items.brand==data.Onefloor.brand)
 		{
-			data.Onefloor.push(items)
-		}else if(items.brand==data.Twofloor[0])
+			if(items.details)
+			data.Onefloor.details=items.details
+			if(items.pic)
+			data.Onefloor.pic.push(items.pic)
+		}else if(items.brand==data.Twofloor.brand)
 		{
-			data.Twofloor.push(items)
-		}else if(items.brand==data.Twofloor[0])
+			if(items.details)
+			data.Twofloor.details=items.details
+			if(items.pic)
+			data.Twofloor.pic.push(items.pic)
+		}else if(items.brand=='清凉一夏')
 		{
 			data.Threefloor.push(items)
+		
+		}else if(items.brand=='swiper'){
+			data.Swiper.push(items.pic)
 		}
 		
 		
@@ -50,4 +61,41 @@ app.get('/show',(req,res)=>{
    
   })
 
+})
+app.post('/insert',(req,res)=>{
+	let phone=req.body.phone
+	let uname=req.body.username
+	let pwd=req.body.pwd
+	let sql=`select userid from users where phone=? and username=?`
+	let sql2=`insert into users (username,phone,pwd)  values(?,?,md5(?))`
+	pool.query(sql,[phone,uname],(err,results)=>{
+		if (err) throw err;
+		if(results.length==0){
+		pool.query(sql2,[uname,phone,pwd],(err,results)=>{
+			if(err) throw err;
+			res.send({ message: 'ok', code: 200})
+		})
+			
+		}else{
+			res.send({ message: '用户已存在', code: 200})
+		}
+			
+	})
+	
+})
+app.post('/login',(req,res)=>{
+	let uname = req.body.username;
+	let pwd = req.body.pwd;
+	let sql = `select userid,username,pwd from users where username=? and pwd=md5(?)`
+	pool.query(sql,[uname,pwd],(err,results)=>{
+		if(err) throw err
+		console.log(results)
+		if(results.length == 0)
+		{ 
+			res.send({message:'登陆失败',code:201});
+		} else {                
+			res.send({message:'ok',code:200,result:results[0]});
+    }
+		
+	})
 })
