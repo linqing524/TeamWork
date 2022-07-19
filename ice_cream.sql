@@ -16,7 +16,7 @@ create table users(
 	userid int primary key auto_increment,
 	username varchar(20),
 	phone varchar(11) unique,
-	pwd varchar(20)
+	pwd varchar(32)
 );
 create table index_all(
 	swiper varchar(20),

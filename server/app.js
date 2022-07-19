@@ -68,7 +68,9 @@ app.post('/insert',(req,res)=>{
 	let pwd=req.body.pwd
 	let sql=`select userid from users where phone=? and username=?`
 	let sql2=`insert into users (username,phone,pwd)  values(?,?,md5(?))`
-	pool.query(sql,[phone,uname],(err,results)=>{
+
+	pool.query(sql,[phone,uname,pwd],(err,results)=>{
+		
 		if (err) throw err;
 		if(results.length==0){
 		pool.query(sql2,[uname,phone,pwd],(err,results)=>{
@@ -77,7 +79,7 @@ app.post('/insert',(req,res)=>{
 		})
 			
 		}else{
-			res.send({ message: '用户已存在', code: 200})
+			res.send({ message: '用户已存在', code: 201})
 		}
 			
 	})
@@ -89,7 +91,6 @@ app.post('/login',(req,res)=>{
 	let sql = `select userid,username,pwd from users where username=? and pwd=md5(?)`
 	pool.query(sql,[uname,pwd],(err,results)=>{
 		if(err) throw err
-		console.log(results)
 		if(results.length == 0)
 		{ 
 			res.send({message:'登陆失败',code:201});
