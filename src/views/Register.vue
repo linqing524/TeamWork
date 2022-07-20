@@ -10,10 +10,10 @@
       status-icon
     >
       <h2 class="animate__pulse">注册</h2>
-      <el-form-item label="用户名" prop="name">
+      <el-form-item label="用户名" prop="username">
         <el-input
           type="text"
-          v-model="rerForm.name"
+          v-model="rerForm.username"
           placeholder="请输入用户名"
           suffix-icon="el-icon-user-solid"
         ></el-input>
@@ -64,15 +64,16 @@ export default {
       }
     };
     return {
+      data: "",
       rerForm: {
-        name: "",
+        username: "",
         phone: "",
         pwd: "",
         checkpwd: "",
       },
 
       rules: {
-        name: [
+        username: [
           {
             required: true,
             message: "请输入用户名",
@@ -95,16 +96,27 @@ export default {
       },
     };
   },
+
   methods: {
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           alert("submit success");
-          this.$router.push("/login");
+          // this.$router.push("/login");
+          this.getData();
         } else {
           alert("submit error");
           return;
         }
+      });
+    },
+    getData() {
+      let params = `phone=${this.rerForm.phone}&username=${this.rerForm.username}&pwd=${this.rerForm.pwd}`;
+      this.axios.post("/insert", params).then((res) => {
+        console.log(this.rerForm.username);
+        console.log(res);
+        this.data = res.data;
+        if (this.data.code == 200) this.$router.push("/login");
       });
     },
   },

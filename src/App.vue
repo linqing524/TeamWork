@@ -37,7 +37,7 @@
           <!-- 右侧选项 -->
 
           <el-col :xs="25" :sm="11" :md="8" :lg="9" :xl="11"
-            ><div class="grid-content bg-purple-light">
+            ><div class="grid-content bg-purple-light dis">
               <el-menu
                 :default-active="activeIndex"
                 mode="horizontal"
@@ -61,6 +61,14 @@
                 <el-menu-item index="3">会员权益</el-menu-item>
                 <el-menu-item index="4">联系我们</el-menu-item>
               </el-menu>
+              <div class="but">
+                <router-link to="/register">
+                  <span class="s1">注册</span>
+                </router-link>
+                <router-link to="/login">
+                  <span class="s2">登录</span>
+                </router-link>
+              </div>
             </div></el-col
           >
         </el-row>
@@ -157,5 +165,27 @@ body {
 .nav_logo {
   height: 80px;
   margin-left: 100px;
+}
+.but {
+  margin-left: 30px;
+  margin-top: 20px;
+  display: flex;
+}
+.s1,
+.s2 {
+  background-color: rgb(242, 242, 242);
+  color: rgb(30, 144, 255);
+  user-select: none;
+  border-radius: 3px;
+  margin-left: 20px;
+  height: 30px;
+  margin-top: 20px;
+}
+.dis {
+  display: flex;
+  justify-content: space-between;
+}
+a {
+  text-decoration: none;
 }
 </style>
