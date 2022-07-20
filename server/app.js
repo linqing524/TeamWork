@@ -68,8 +68,8 @@ app.post('/insert',(req,res)=>{
 	let pwd=req.body.pwd
 	let sql=`select userid from users where phone=? and username=?`
 	let sql2=`insert into users (username,phone,pwd)  values(?,?,md5(?))`
-
-	pool.query(sql,[phone,uname,pwd],(err,results)=>{
+	console.log(uname)
+	pool.query(sql,[uname,phone,pwd],(err,results)=>{
 		
 		if (err) throw err;
 		if(results.length==0){
